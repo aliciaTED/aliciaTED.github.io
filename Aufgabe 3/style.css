@@ -1,6 +1,12 @@
 /* Styling CSS für Aufgabe 3*/
-body {display: block
-    margin: 1em 1.5em 1em 1.5em;
-    background color: #000000;}
-p {font-size: 2em; color: #11FF00}
-h1; h2; h3 {font: Kunstler Script; font-size: 1.5em}
+body {text-align: center; background-color: #B3D0FF;}
+p {font-size: 0.75em; color: #005F00; background-color: #F1F1F1}
+.headline {font-family: fantasy; font-size: 1.5em; color: #004F00}
+h3 {font-size: 1.25em; font-family: fantasy; color: #004F00}
+#maintitle {font-size: 3em; color: #004F00}
+#img {border-style: bold; width: 40%; border-width: 1em}
+section {background-color: #F1F1F1}
+#tree1 {width: 100%; font-family: cursive}
+#tree2 {width: 70%}
+#tree3 {width: 55%; border: 5em}
+ul {list-style-type: none; width: 60px; margin: 0; padding: 0; background-color: #004F00; color: #F1F1F1} /* Navigation oben schön anzeigen */
