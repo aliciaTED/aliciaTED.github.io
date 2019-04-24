@@ -1,0 +1,79 @@
+/* Styling CSS für Aufgabe 3*/
+body {
+    text-align: center;
+    background-color: #B3D0FF;
+}
+
+#wrapper {
+    margin-left: 5%;
+    margin-right: 2.5%
+}
+
+#mainnav li
+{
+    font-size: 2em;
+    width: 25%;
+    float: left; /* alles in einer Linie*/
+    text-align: right; /* zumindest hier: mittige Navigation*/
+    padding: 15px; /* verschiebt Elemente etwas nach unten, vergrößtert Abstand */
+    list-style: none; /* entfernt Punkte von Liste*/
+}
+
+.headline {
+    font-family: fantasy;
+    font-size: 1.5em;
+    color: #004F00
+}
+
+h3 {
+    font-size: 1.25em;
+    font-family: fantasy; 
+    color: #004F00
+}
+
+#maintitle {
+    font-size: 3em;
+    color: #004F00
+}
+
+img{
+    height: 35%; 
+    width: 35%;
+    border: 1.5px solid #000000; /*Farbe und Breite des Rahmens*/
+    border-radius: 90% /*macht Rahmen rund*/
+}
+
+section {
+    background-color: #F1F1F1;
+    float: left;
+    width: 30%;
+    margin: 1.1%
+}
+
+article {
+    margin-right:2%;
+    margin-left: 2%;
+    margin-bottom: 2%;
+}
+
+aside {
+    float: left;
+    font-size: 1.45em;
+    background-color: #D1FFD1;
+    margin-right:4%;
+    margin-left: 2%;
+    margin-top: 1%;
+    margin-bottom: 3%;
+}
+
+p {
+    font-size: 0.75em;
+    color: #005F00;
+    background-color: #F1F1F1
+}
+
+footer {
+    float: left;
+    width: 100%;
+    background-color: #F1F1F1;
+}
