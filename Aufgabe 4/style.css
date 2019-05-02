@@ -1,28 +1,28 @@
-/* Styling CSS für Aufgabe 3*/
+/* Styling CSS für Aufgabe 4*/
 body {
-    text-align: center;
-    background-color: #B3D0FF;
+    background-color: #B3D0FF
 }
 
-#wrapper {
-    margin-left: 5%;
-    margin-right: 2.5%
-}
-
-#mainnav li
-{
-    font-size: 2em;
-    width: 25%;
-    float: left; /* alles in einer Linie*/
-    text-align: right; /* zumindest hier: mittige Navigation*/
-    padding: 15px; /* verschiebt Elemente etwas nach unten, vergrößtert Abstand */
+#mainnav ul {
+    font-size: 1em;
+    width: 25%; /*jeder Punkt bekommt 30% Platz*/
+    float: left;
+    position: fixed; /* Menü läuft mit*/
+    background-color: #F1F1F1;
+    padding: 0;
     list-style: none; /* entfernt Punkte von Liste*/
+}
+
+main {
+    width: 75%;
 }
 
 .headline {
     font-family: fantasy;
     font-size: 1.5em;
-    color: #004F00
+    color: #004F00;
+    background-color: #F1F1F1;
+    z-index: 20;
 }
 
 h3 {
@@ -43,6 +43,7 @@ img{
     border-radius: 90% /*macht Rahmen rund*/
 }
 
+
 section {
     background-color: #F1F1F1;
     float: left;
@@ -60,10 +61,7 @@ aside {
     float: left;
     font-size: 1.45em;
     background-color: #D1FFD1;
-    margin-right:4%;
-    margin-left: 2%;
-    margin-top: 1%;
-    margin-bottom: 3%;
+    width: 25%
 }
 
 p {
@@ -76,4 +74,6 @@ footer {
     float: left;
     width: 100%;
     background-color: #F1F1F1;
+    margin: 0;
+    padding: 0
 }
