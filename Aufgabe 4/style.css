@@ -1,28 +1,39 @@
-/* Styling CSS für Aufgabe 4*/
+/* Styling CSS für Aufgabe 3*/
 body {
-    background-color: #B3D0FF
+    background-color: #B3D0FF;
 }
 
-#mainnav ul {
-    font-size: 1em;
-    width: 25%; /*jeder Punkt bekommt 30% Platz*/
-    float: left;
-    position: fixed; /* Menü läuft mit*/
-    background-color: #F1F1F1;
-    padding: 0;
-    list-style: none; /* entfernt Punkte von Liste*/
+header div { /*breites Band für Navigation*/
+    z-index         : 55;
+    position        : fixed;
+    top             : -20px;
+    left            : -20px; /*top & left machen, dass volle Breite von (hier) blauem Band eingenommen wird*/
+    background-color: #B3D0FF;
+    width           : 100%;
+    height          : 100px;
 }
 
-main {
-    width: 75%;
+nav {
+    position: fixed; /* bleibt oben dran und scrollt mit*/
+    width: 100%;
+   margin: 0 0 0 0
 }
+
+#mainnav li {
+    display: inline; /*in einer Linie*/
+    margin: 5% 5% 5% 5%;
+    background: #B3D0FF;
+    font-size: 2em;
+    z-index: 56;
+    display: inline
+} /*noch zu fixen: Warum nicht eine ganze blaue Zeile??? */
 
 .headline {
     font-family: fantasy;
     font-size: 1.5em;
     color: #004F00;
-    background-color: #F1F1F1;
-    z-index: 20;
+    text-align: center;
+    z-index: 60
 }
 
 h3 {
@@ -33,35 +44,60 @@ h3 {
 
 #maintitle {
     font-size: 3em;
-    color: #004F00
+    z-index: 100;
+    position: relative
 }
 
 img{
     height: 35%; 
     width: 35%;
+    margin: 3% 3% 3% 30%;
     border: 1.5px solid #000000; /*Farbe und Breite des Rahmens*/
-    border-radius: 90% /*macht Rahmen rund*/
+    border-radius: 90%; /*macht Rahmen rund*/
+
 }
 
+main {
+    width: 80%;
+    float: left;
+    margin: 0 10% 3% 25% /*Abstand zu rechtem Rand, Footer und Aside */
+}
 
 section {
     background-color: #F1F1F1;
     float: left;
-    width: 30%;
-    margin: 1.1%
+    width:20%;
+    margin-top: 5%;
+    border: solid #F3D0FF
+}
+
+section:nth-child(3n +1) {
+    clear           : left;
 }
 
 article {
-    margin-right:2%;
-    margin-left: 2%;
-    margin-bottom: 2%;
+    margin: 10% 5% 10% 5%;
+    
 }
+
+
 
 aside {
     float: left;
     font-size: 1.45em;
-    background-color: #D1FFD1;
-    width: 25%
+    background-color: #B3D0FF;
+    width: 20%;
+    position: fixed;
+    z-index: 30;
+    margin-top: 3% 
+
+}
+
+aside:hover {
+    width: 35%;
+    background-color: #F1F1F1;
+    border: solid #000000;
+    margin-top: 4%
 }
 
 p {
@@ -74,6 +110,5 @@ footer {
     float: left;
     width: 100%;
     background-color: #F1F1F1;
-    margin: 0;
-    padding: 0
+    text-align: center
 }
