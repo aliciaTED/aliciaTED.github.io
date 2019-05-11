@@ -1,0 +1,136 @@
+/* Styling CSS für Aufgabe 3*/
+body {
+    background-color: #B3D0FF;
+    overflow: none
+}
+
+header div { /*breites Band für Navigation*/
+    z-index         : 50;
+    position        : fixed;
+    top             : -20px;
+    left            : -20px; /*top & left machen, dass volle Breite von (hier) blauem Band eingenommen wird*/
+    background-color: #B3D0FF;
+    width           : 100%;
+    height          : 90px;
+}
+
+#burgermenü {
+    width: 5%;
+    height: auto;
+    position: fixed;
+    top: -2px;
+    left: -400px;
+    z-index: 100
+}
+
+nav {
+    position: fixed; /* bleibt oben dran und scrollt mit*/
+    width: 100%;
+    top: -1px; /* bringt Nav etwas höher*/
+    z-index: 60
+}
+
+#mainnav li {
+    display: inline; /*in einer Linie*/
+    margin: 5% 5% 5% 5%; /*Abstand zwischen Wörtern*/
+    background: #B3D0FF;
+    font-size: 2em;
+    z-index: 60;
+    display: none;
+}
+
+li:hover {
+    border: solid #000000;
+}
+
+#burgermenü:hover+nav {
+    display: block
+}
+
+.headline {
+    font-family: fantasy;
+    font-size: 1.5em;
+    color: #004F00;
+    text-align: center;
+    z-index: 60
+}
+
+h3 {
+    font-size: 1.25em;
+    font-family: fantasy; 
+    color: #004F00
+}
+
+#maintitle {
+    font-size: 3em;
+    z-index: 100;
+    margin-top: 5%;
+    position: relative
+}
+
+img{
+    height: auto; 
+    width: 50%;
+    margin: 3% 3% 3% 30%;
+    border: 1.5px solid #000000; /*Farbe und Breite des Rahmens*/
+    border-radius: 90%; /*macht Rahmen rund*/
+}
+
+main {
+    width: 75%;
+    float: left;
+    margin: 0 10% 3% 25% /*Abstand zu rechtem Rand, Footer und Aside */
+}
+
+section {
+    background-color: #F1F1F1;
+    float: left;
+    width:30%;
+    margin-top: 5%;
+    border: solid #F3D0FF;
+    height: 800px; /*beschränkt Boxgröße nach unten*/
+    overflow: scroll;
+    margin: 0 0 3% 2%
+}
+
+section:nth-child(3n +1) {
+    clear           : left;
+}
+
+article {
+    margin: 10% 5% 10% 5%;    
+}
+
+aside {
+    float: left;
+    font-size: 1.45em;
+    background-color: #B3D0FF;
+    width: 20%;
+    font-size: 1.2em;
+    margin-top: 2%
+}
+
+aside:hover {
+    width: 35%;
+    background-color: #F1F1F1;
+    border: solid #000000;
+    margin-top: 3.75%
+}
+
+p {
+    font-size: 0.75em;
+    color: #005F00;
+    background-color: #F1F1F1
+}
+
+footer {
+    clear: left;
+    width: 100%;
+    background-color: #F1F1F1;
+    text-align: center
+}
+
+/* Ansicht Smartphone*/
+
+@mediascreen (min-width: 140em){
+
