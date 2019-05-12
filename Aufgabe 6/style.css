@@ -1,8 +1,10 @@
-/* Styling CSS für Aufgabe 3*/
+/* Styling CSS für Aufgabe 6*/
 body {
     background-color: #B3D0FF;
-    overflow: none
+    margin: 0 auto; /* flexible Breite */
 }
+
+/* Burgermenü */
 
 header div { /*breites Band für Navigation*/
     z-index         : 50;
@@ -11,41 +13,64 @@ header div { /*breites Band für Navigation*/
     left            : -20px; /*top & left machen, dass volle Breite von (hier) blauem Band eingenommen wird*/
     background-color: #B3D0FF;
     width           : 100%;
-    height          : 90px;
+    height          : 150px;
 }
 
-#burgermenü {
+#baum {
     width: 5%;
     height: auto;
-    position: fixed;
-    top: -2px;
+    position: fixed; 
+    top: -20px;
     left: -400px;
     z-index: 100
 }
 
 nav {
     position: fixed; /* bleibt oben dran und scrollt mit*/
-    width: 100%;
-    top: -1px; /* bringt Nav etwas höher*/
-    z-index: 60
+    z-index: 60;
+    display: none
 }
 
-#mainnav li {
-    display: inline; /*in einer Linie*/
-    margin: 5% 5% 5% 5%; /*Abstand zwischen Wörtern*/
+ul {
+    position: fixed;
+    width: 50%;
+    list-style: none;
     background: #B3D0FF;
     font-size: 2em;
-    z-index: 60;
-    display: none;
+    text-align: left;
+}
+
+#baum:hover+ul {
+    display: block;
+    position: fixed;
+    transition: all ease 0.5s
+}
+
+nav:hover {
+    display: block
+}
+
+ul:hover {
+    display: block;
+}
+
+li {
+    display: block;
+    color: #004F00;
 }
 
 li:hover {
+    display: block;
+    background-color: #F3D0FF;
     border: solid #000000;
 }
 
-#burgermenü:hover+nav {
-    display: block
+a {
+    text-decoration: none;
+    color: #000000
 }
+
+/* Überschriften/Schriftarten/Bilder */
 
 .headline {
     font-family: fantasy;
@@ -68,7 +93,7 @@ h3 {
     position: relative
 }
 
-img{
+img {
     height: auto; 
     width: 50%;
     margin: 3% 3% 3% 30%;
@@ -76,16 +101,16 @@ img{
     border-radius: 90%; /*macht Rahmen rund*/
 }
 
+/* Main + Aside */
+
 main {
     width: 75%;
-    float: left;
-    margin: 0 10% 3% 25% /*Abstand zu rechtem Rand, Footer und Aside */
 }
 
 section {
     background-color: #F1F1F1;
     float: left;
-    width:30%;
+    width: 30%;
     margin-top: 5%;
     border: solid #F3D0FF;
     height: 800px; /*beschränkt Boxgröße nach unten*/
@@ -98,24 +123,23 @@ section:nth-child(3n +1) {
 }
 
 article {
-    margin: 10% 5% 10% 5%;    
+    margin: 10% 5% 10% 5%; 
 }
 
 aside {
-    float: left;
-    font-size: 1.45em;
     background-color: #B3D0FF;
-    width: 20%;
-    font-size: 1.2em;
-    margin-top: 2%
+    width: 25%;
+    float: right
 }
 
 aside:hover {
     width: 35%;
     background-color: #F1F1F1;
     border: solid #000000;
-    margin-top: 3.75%
+    transition: all ease 0.5s;
 }
+
+/*Frage: Warum weicht Article zur Seite?*/
 
 p {
     font-size: 0.75em;
@@ -132,5 +156,97 @@ footer {
 
 /* Ansicht Smartphone*/
 
-@mediascreen (min-width: 140em){
+@media only screen and (max-width: 39em) {
+    /* For mobile phones: */
+    
+    #maintitle {
+        top: 40px;
+    }
 
+    header div { /*breites Band für Navigation*/
+        z-index         : 50;
+        position        : fixed;
+        top             : -20px;
+        left            : -20px; /*top & left machen, dass volle Breite von (hier) blauem Band eingenommen wird*/
+        background-color: #B3D0FF;
+        width           : 100%;
+        height          : 100px;
+    }
+
+    #baum {
+        width: 10%;
+        height: auto;
+        position: fixed; 
+        top: -2px;
+        left: -100px;
+        z-index: 100
+    }
+
+    main {
+        margin-top: 2em;
+        margin-right: 1em;
+        margin-left: 3em
+    }
+    
+    aside {
+        margin-top: 2em;
+        width: 80%;
+        margin-left: 3em;
+        margin-bottom: 1em;
+    }
+
+    aside:hover {
+        width: 100%;
+    }
+    
+    section {
+        width: 100%;
+        margin-bottom: 1em
+    }
+    article {
+        width: 100%; 
+    }
+  }
+
+  /* Ansicht Tablet */
+
+  @media screen and (min-width: 40em) {
+    
+    #baum {
+        width: 5%;
+        height: auto;
+        position: fixed; 
+        top: 0.2px;
+        left: -170px;
+        z-index: 100
+    }
+    
+    main {
+          margin-top: 2em;
+          width: 75%;
+      }
+
+      aside {
+          width: 25%;
+      }
+
+      aside:hover {
+        width: 40%;
+      }
+
+      section {
+          width: 35%;
+          margin-right: 1em;
+          margin-bottom: 1em;
+      }
+
+      section:nth-child(2n+1) {
+          clear: left
+      }
+  }
+
+  @media screen and (min-width: 80em) {
+      section:nth-child(3n+1) {
+          clear: left
+      }
+  }
