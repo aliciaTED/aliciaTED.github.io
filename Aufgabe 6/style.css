@@ -1,4 +1,7 @@
-/* Styling CSS für Aufgabe 6*/
+/* Styling CSS für Aufgabe 6
+
+Ansicht Smartphone*/
+
 body {
     background-color: #B3D0FF;
     margin: 0 auto; /* flexible Breite */
@@ -12,16 +15,16 @@ header div { /*breites Band für Navigation*/
     top             : -20px;
     left            : -20px; /*top & left machen, dass volle Breite von (hier) blauem Band eingenommen wird*/
     background-color: #B3D0FF;
-    width           : 100%;
-    height          : 150px;
+    width           : 110%;
+    height          : 100px;
 }
 
 #baum {
-    width: 5%;
+    width: 10%;
     height: auto;
     position: fixed; 
-    top: -20px;
-    left: -400px;
+    top: -2px;
+    left: -100px;
     z-index: 100
 }
 
@@ -33,7 +36,7 @@ nav {
 
 ul {
     position: fixed;
-    width: 50%;
+    width: 100%;
     list-style: none;
     background: #B3D0FF;
     font-size: 2em;
@@ -90,7 +93,8 @@ h3 {
     font-size: 3em;
     z-index: 100;
     margin-top: 5%;
-    position: relative
+    position: relative;
+    margin-top: 60px;
 }
 
 img {
@@ -104,18 +108,19 @@ img {
 /* Main + Aside */
 
 main {
-    width: 75%;
+    width: 100%;
 }
 
 section {
     background-color: #F1F1F1;
     float: left;
-    width: 30%;
+    width: 85%;
     margin-top: 5%;
     border: solid #F3D0FF;
     height: 800px; /*beschränkt Boxgröße nach unten*/
     overflow: scroll;
-    margin: 0 0 3% 2%
+    margin-left: 2em;
+    margin-right: 2em
 }
 
 section:nth-child(3n +1) {
@@ -128,18 +133,14 @@ article {
 
 aside {
     background-color: #B3D0FF;
-    width: 25%;
-    float: right
+    width: 98%;
 }
 
 aside:hover {
-    width: 35%;
     background-color: #F1F1F1;
     border: solid #000000;
     transition: all ease 0.5s;
 }
-
-/*Frage: Warum weicht Article zur Seite?*/
 
 p {
     font-size: 0.75em;
@@ -154,64 +155,20 @@ footer {
     text-align: center
 }
 
-/* Ansicht Smartphone*/
+  /* Ansicht Tablet */
 
-@media only screen and (max-width: 39em) {
-    /* For mobile phones: */
+  @media screen and (min-width: 40em) {
     
-    #maintitle {
-        top: 40px;
-    }
-
     header div { /*breites Band für Navigation*/
         z-index         : 50;
         position        : fixed;
         top             : -20px;
         left            : -20px; /*top & left machen, dass volle Breite von (hier) blauem Band eingenommen wird*/
         background-color: #B3D0FF;
-        width           : 100%;
-        height          : 100px;
+        width           : 110%;
+        height          : 130px;
     }
 
-    #baum {
-        width: 10%;
-        height: auto;
-        position: fixed; 
-        top: -2px;
-        left: -100px;
-        z-index: 100
-    }
-
-    main {
-        margin-top: 2em;
-        margin-right: 1em;
-        margin-left: 3em
-    }
-    
-    aside {
-        margin-top: 2em;
-        width: 80%;
-        margin-left: 3em;
-        margin-bottom: 1em;
-    }
-
-    aside:hover {
-        width: 100%;
-    }
-    
-    section {
-        width: 100%;
-        margin-bottom: 1em
-    }
-    article {
-        width: 100%; 
-    }
-  }
-
-  /* Ansicht Tablet */
-
-  @media screen and (min-width: 40em) {
-    
     #baum {
         width: 5%;
         height: auto;
@@ -223,11 +180,12 @@ footer {
     
     main {
           margin-top: 2em;
-          width: 75%;
+          width: 70%;
       }
 
       aside {
-          width: 25%;
+          width: 30%;
+          float: right;
       }
 
       aside:hover {
@@ -243,10 +201,47 @@ footer {
       section:nth-child(2n+1) {
           clear: left
       }
+
+    /* Frage: Wieso nicht 2x section pro Reihe??? */
+
   }
 
-  @media screen and (min-width: 80em) {
-      section:nth-child(3n+1) {
-          clear: left
+  @media screen and (min-width: 79em) {
+    
+    header div { /*breites Band für Navigation*/
+        z-index         : 50;
+        position        : fixed;
+        top             : -20px;
+        left            : -20px; /*top & left machen, dass volle Breite von (hier) blauem Band eingenommen wird*/
+        background-color: #B3D0FF;
+        width           : 110%;
+        height          : 150px;
+    }
+    
+    #baum {
+        width: 5%;
+        height: auto;
+        position: fixed; 
+        top: -20px;
+        left: -400px;
+        z-index: 100
+    }
+
+    main {
+          width: 80%
+      }
+
+    aside {
+          width: 25%;
+          float: right;
+      }
+
+    aside:hover {
+          width: 40%
+      }
+
+    section {
+          width: 25%;
+          margin: 1 1 1 1;
       }
   }
