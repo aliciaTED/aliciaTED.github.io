@@ -60,7 +60,7 @@ console.log(monsterArray ); // Gebe das Monster-Array einmal zu Beginn aus. Es s
 window.onload = function () {
     document.getElementById("monsterSpawner").addEventListener("click", generateMonster, false);
     updatePlayerLevel();
-    console.log("" + document.getElementById("monsterSpawner").innerHTML); // Zu Anfang wird durch eine Funktion ein HTML-Element mit Inhalt befüllt. FEHLER: Dies Funktion "monsterSpawner" wird im folgenden Code nicht genauer definiert & kann deswegen nicht ausgeführt werden!
+    console.log("" + document.getElementById("monsterSpawner").innerHTML); // Zu Anfang wird durch eine Funktion ein HTML-Element mit Inhalt befüllt. FEHLER: console.log war nicht in der window.onload function! 
     document.getElementById("ArrayPush").addEventListener("click", pushpush);
 }
 
@@ -88,7 +88,7 @@ function generateMonster()
 
     monsterArray.push(newMonster);                                      // Monster wird erst in diesem Schritt zu dem Array hinzugefügt 
 
-    console.log(monsterArray[monsterArray.length - 1].monsterExperience); // FEHLER: length war nicht definiert ? // Man kann nur auf Array-Teile zugreifen, welche definiert sind. -1 ist nicht definitiert (und wird es auch nie sein).
+    console.log(monsterArray[monsterArray.length - 1].monsterExperience); // FEHLER: length war nicht definiert, hätte man auch einfach durch 0 ersetzen können oder komplett löschen // Man kann nur auf Array-Teile zugreifen, welche definiert sind. -1 ist nicht definitiert (und wird es auch nie sein).
 
     monsterGenerateHTML();                                              // Triggere die Generierung von HTML
 }
@@ -145,7 +145,7 @@ function getRNGNumber(_maxNumber : number) : number
 // Diese Funktion gibt einen zusammengewürfelten Namen zurück.
 // Wird für die Monstergenerierung verwendet!
 // Liefert einen zusammengesetzten String zurück.
-function generateMonsterName() : string
+function generateMonsterName() : string // string hintendran heißt, dass man in den Funktionen auf Variablen zugreift bzw. die Funktion selbst eine Variable ist (?) und man somit Namen per Zufallsprinzip generieren kann.
 { 
     let generatedMonsterName : string = ""; // Erstelle einen leeren String für das Monster
 
@@ -156,11 +156,11 @@ function generateMonsterName() : string
 
     // Monster-Mittelname
     rngNumber = getRNGNumber(monsterName.length);                       // Der Rückgabewert der Funktion wird hier verwendet um den entsprechenden Teil des Namens (hier: Mitte) zu generieren.
-    generatedMonsterName += monsterName[rngNumber];                             // Füge den Monsternamen zusammen: nimm aus dem entsprechenden Array mit der zufallsgenerierten Zahl den entsprechenden Eintrag.
+    generatedMonsterName += monsterName[rngNumber];                     // FEHLER: Monstername muss mit rngNumber ausgewählt werden, nicht mit 0! // Füge den Monsternamen zusammen: nimm aus dem entsprechenden Array mit der zufallsgenerierten Zahl den entsprechenden Eintrag.
 
     // Monster-Titel
     rngNumber = getRNGNumber(suffix.length);                            // Der Rückgabewert der Funktion wird hier verwendet um den entsprechenden Teil des Namens (hier: Ende) zu generieren.
-    generatedMonsterName += suffix[rngNumber];                          // Füge den Monsternamen zusammen: nimm aus dem entsprechenden Array mit der zufallsgenerierten Zahl den entsprechenden Eintrag.
+    generatedMonsterName += suffix[rngNumber];                          // Füge den Monsternamen zusammen (dafür nötig: +=): nimm aus dem entsprechenden Array mit der zufallsgenerierten Zahl den entsprechenden Eintrag.
 
     return generatedMonsterName;
 }
@@ -171,7 +171,7 @@ function generateMonsterName() : string
 function generateMonsterHitPoints() : number
 {
     // Diese Funktion gibt eine zufällige ganze Zahl (zwischen 0 und 10) + 1 zurück.
-    let tempMonsterHP : number = 1 + getRNGNumber(10);
+    let tempMonsterHP : number = 200 + getRNGNumber(500); // Erfahrungspunkte des Monsters erhöht.
     return tempMonsterHP;
 }
 
