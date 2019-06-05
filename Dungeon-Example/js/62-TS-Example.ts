@@ -171,7 +171,7 @@ function generateMonsterName() : string // string hintendran heißt, dass man in
 function generateMonsterHitPoints() : number
 {
     // Diese Funktion gibt eine zufällige ganze Zahl (zwischen 0 und 10) + 1 zurück.
-    let tempMonsterHP : number = 200 + getRNGNumber(500); // Erfahrungspunkte des Monsters erhöht.
+    let tempMonsterHP : number = 1 + getRNGNumber(10); 
     return tempMonsterHP;
 }
 
@@ -181,7 +181,7 @@ function generateMonsterHitPoints() : number
 function generateMonsterXP() : number
 {
     // Diese Funktion gibt eine zufällige ganze Zahl (zwischen 0 und 350) + 100 zurück.
-    let tempMonsterXP : number = 100 + getRNGNumber(350);
+    let tempMonsterXP : number = 200 + getRNGNumber(500); // Erfahrungspunkte des Monsters erhöht.
     return tempMonsterXP;
 }
 
