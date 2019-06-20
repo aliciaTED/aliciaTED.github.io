@@ -92,7 +92,7 @@ function monsterGenerateHTML(count) {
     monsterName.innerHTML = monsterArray[count - 1].monsterName; // Inhalt des <p>: Monster-Name des letzten Monsters im Array.
     holdingDiv.appendChild(monsterName); // Füge das <p> zum HTML-Dokument hinzu, indem es dem holding-Div angefügt wird.
     let monsterMod = document.createElement("p"); // Generiere einen <p>
-    monsterMod.innerHTML = monsterArray[count - 1].monsterModifier[0] + ", " + monsterArray[monsterArray.length - 1].monsterModifier[1]; // Inhalt des <p>: Monster-Modifizierer null und eins
+    monsterMod.innerHTML = monsterArray[count - 1].monsterModifier[0] + ", " + monsterArray[count - 1].monsterModifier[1]; // Inhalt des <p>: Monster-Modifizierer null und eins
     holdingDiv.appendChild(monsterMod); // Füge das <p> zum HTML-Dokument hinzu, indem es dem holding-Div angefügt wird.
     let monsterImg = document.createElement("img"); // Erstelle ein <img>-Element
     monsterImg.setAttribute("src", "imgs/" + monsterArray[count - 1].monsterImage); // Der Pfad für das Bild muss über setAttribute festgelegt werden. Der Bildpfad kann natürlich auch anders aussehen.
@@ -105,7 +105,7 @@ function monsterGenerateHTML(count) {
     monsterfav.innerHTML = "Mag: " + monsterArray[count - 1].monsterFave;
     holdingDiv.appendChild(monsterfav);
     let monsterHPuXP = document.createElement("p");
-    monsterHPuXP.innerHTML = "Start-HP: " + monsterArray[count - 1].monsterHealthPoints + " || Monster-XP: " + monsterArray[monsterArray.length - 1].monsterExperience;
+    monsterHPuXP.innerHTML = "Start-HP: " + monsterArray[count - 1].monsterHealthPoints + " || Monster-XP: " + monsterArray[count - 1].monsterExperience;
     holdingDiv.appendChild(monsterHPuXP);
     let monsterBtn = document.createElement("BUTTON"); // Erstelle ein <button>-Element
     monsterBtn.innerHTML = "Monster bekämpfen!"; // Verändere den Inhalt des HTML-Elementes. Der genaue Text ist dabei euch überlassen.

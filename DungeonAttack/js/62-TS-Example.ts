@@ -141,7 +141,7 @@ function monsterGenerateHTML(count : number) // Operator soll erstellt werden, a
     holdingDiv.appendChild(monsterName);                                // Füge das <p> zum HTML-Dokument hinzu, indem es dem holding-Div angefügt wird.
 
     let monsterMod : HTMLElement = document.createElement("p");        // Generiere einen <p>
-    monsterMod.innerHTML = monsterArray[count - 1].monsterModifier[0] + ", " +  monsterArray[monsterArray.length -1].monsterModifier[1]; // Inhalt des <p>: Monster-Modifizierer null und eins
+    monsterMod.innerHTML = monsterArray[count - 1].monsterModifier[0] + ", " +  monsterArray[count - 1].monsterModifier[1]; // Inhalt des <p>: Monster-Modifizierer null und eins
     holdingDiv.appendChild(monsterMod);                                // Füge das <p> zum HTML-Dokument hinzu, indem es dem holding-Div angefügt wird.
 
     let monsterImg : HTMLElement = document.createElement("img");      // Erstelle ein <img>-Element
@@ -158,7 +158,7 @@ function monsterGenerateHTML(count : number) // Operator soll erstellt werden, a
     holdingDiv.appendChild(monsterfav);
 
     let monsterHPuXP : HTMLElement = document.createElement("p");
-    monsterHPuXP.innerHTML = "Start-HP: " + monsterArray[count - 1].monsterHealthPoints + " || Monster-XP: " + monsterArray[monsterArray.length - 1].monsterExperience;
+    monsterHPuXP.innerHTML = "Start-HP: " + monsterArray[count - 1].monsterHealthPoints + " || Monster-XP: " + monsterArray[count - 1].monsterExperience;
     holdingDiv.appendChild(monsterHPuXP);
 
 
