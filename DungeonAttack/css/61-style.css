@@ -89,6 +89,8 @@ button {
 
 #ArrayPush {
 	width: 3em;
+	padding-top: 2px;
+	padding-bottom: 1px;
 	background-color: #808080; /*passt besser ins Design ? */
 }
 

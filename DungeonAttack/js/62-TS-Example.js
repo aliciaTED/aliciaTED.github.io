@@ -83,6 +83,32 @@ function clearMonsterCell() {
 function getMonsterCount() {
     return monsterArray.length;
 }
+function fightallMonsters() {
+    for (let i = monsterArray.length - 1; i >= 0; i--) // Array-Länge von hinten durchgehen, um Verschiebungen zu vermeiden
+     {
+        fightMonster(i);
+    }
+}
+function fightallweakMonsters() {
+    for (let i = monsterArray.length - 1; i >= 0; i--) {
+        if (playerLevel >= monsterArray[i].monsterLevel) {
+            fightMonster(i);
+        }
+    }
+}
+function fightweakestMonster() {
+    let _indexweakest = 0;
+    let findWeakest = monsterArray[0].monsterLevel;
+    for (let i = monsterArray.length - 1; i >= 0; i--) {
+        if (monsterArray[i].monsterLevel < findWeakest) {
+            _indexweakest = i;
+            findWeakest = monsterArray[i].monsterLevel;
+        }
+    }
+    let weakestMonster = monsterArray[_indexweakest].monsterName;
+    console.log(weakestMonster + " ist das schwächste Monster! Greif es an!");
+    fightMonster(_indexweakest);
+}
 function monsterGenerateHTMLAII() {
     for (let i = 1; i <= monsterArray.length; i++) {
         monsterGenerateHTML(i); // muss sich auf "i" beziehen, damit Aussage nach console.log Sinn ergibt (Du hast 1 Monster gefunden --> Anzahl der Monster 1.)
@@ -182,43 +208,19 @@ function generateMonsterImage() {
     let rngNumber = getRNGNumber(imgsrc.length);
     return imgsrc[rngNumber];
 }
-function fightallMonsters() {
-    for (let i = monsterArray.length - 1; i >= 0; i--) // Array-Länge von hinten durchgehen, um Verschiebungen zu vermeiden
-     {
-        fightMonster(i);
-    }
-}
-function fightallweakMonsters() {
-    for (let i = monsterArray.length - 1; i >= 0; i--) {
-        if (playerLevel >= monsterArray[i].monsterLevel) {
-            fightMonster(i);
-        }
-    }
-}
-function fightweakestMonster() {
-    let _indexweakest = 0;
-    for (let i = 0; i < monsterArray.length; i++) {
-        if (monsterArray[i].monsterLevel < monsterArray[_indexweakest].monsterLevel) {
-            _indexweakest = i;
-        }
-        let weakestMonster = monsterArray[i].monsterName;
-        console.log(weakestMonster + " ist das schwächste Monster! Greif es an!");
-        fightMonster(_indexweakest);
-    }
-}
 // Aufgerufen, wenn man auf den Button klickt.
 // Der Spieler kämpft gegen das entsprechende Monster. Er erhält dann Erfahrungspunkte. Wie ändere ich die Reichweite dieser Erfahrungspunkte?? 
 function fightMonster(_index) {
     if (monsterArray[_index].monsterLevel <= playerLevel) {
         console.log("Spieler kämpft gegen Monster und gewinnt!");
-        updatePlayerLevel(monsterArray[_index - 1].monsterExperience);
-        playerXP += monsterArray[_index - 1].monsterExperience;
+        updatePlayerLevel(monsterArray[_index].monsterExperience);
+        playerXP += monsterArray[_index].monsterExperience;
         monsterArray.splice(_index, 1);
         updateHTML();
     }
     if (monsterArray[_index].monsterLevel > playerLevel) {
         console.log("Das Monster weigert sich zu verschwinden.");
-        updatePlayerLevel(-monsterArray[_index - 1].monsterExperience);
+        updatePlayerLevel(-monsterArray[_index].monsterExperience);
     }
 }
 // Aufgerufen, um das HTML-Element, welches das Spieler-Level darstellt, zu erneuern.
