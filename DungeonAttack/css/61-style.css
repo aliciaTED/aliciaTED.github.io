@@ -20,8 +20,8 @@ h1 {
 .monster {
 	width: 20em;
 	height: auto;
-	padding-right: 3em;
-	padding-top: 3em;
+	padding-right: 1em;
+	padding-top: 1em;
 	overflow: none;
 }
 
