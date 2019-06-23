@@ -26,9 +26,15 @@ h1 {
 }
 
 .monster img { /* verzerrt die Bilder leider etwas, geht aber nicht anders, da das Schnabeltierbild eine viel größere Breite hat als die restlichen Bilder*/
-	width: 330px;
-	height: 350px;
+	width: 180px;
+	height: 200px;
+	margin-left: 4.5em;
 }
+
+/*.monsterHP {
+	width: 320px;
+	background-color: #02a310d0;
+}*/
 
 .monster button {
 	text-align: center;

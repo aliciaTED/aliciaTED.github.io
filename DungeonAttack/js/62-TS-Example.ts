@@ -187,6 +187,20 @@ function monsterGenerateHTML(count : number) // Operator soll erstellt werden, a
     monsterImg.setAttribute("alt", "Schreckliches Monster");            // Das alt für das Bild wird hier festgelegt.
     holdingDiv.appendChild(monsterImg);                                 // Füge das Bild zu dem holding-div hinzu (<div>, welche ein paar Zeilen zuvor erstellt worden ist)
 
+    let monsterLvl : HTMLElement = document.createElement("p");
+    monsterLvl.innerHTML = "Level " + monsterArray[count - 1].monsterLevel;
+    holdingDiv.appendChild(monsterLvl);
+
+    let monsterHP: HTMLElement = document.createElement("p");
+    monsterHP.innerHTML = "HP " + monsterArray[count - 1].monsterHealthPoints;
+    monsterHP.style.backgroundColor = "#02a310d0";
+    monsterHP.style.width = monsterArray[count - 1].monsterHealthPoints + "%";
+    holdingDiv.appendChild(monsterHP);
+
+    let monsterXP : HTMLElement = document.createElement("p");
+    monsterXP.innerHTML = "XP: " + monsterArray[count - 1].monsterExperience;
+    holdingDiv.appendChild(monsterXP);
+
     let monsteratt : HTMLElement = document.createElement("p");
     monsteratt.innerHTML = "Attacke: " + monsterArray[count - 1].monsterAttack
     holdingDiv.appendChild(monsteratt)
@@ -194,14 +208,6 @@ function monsterGenerateHTML(count : number) // Operator soll erstellt werden, a
     let monsterfav : HTMLElement = document.createElement("p");
     monsterfav.innerHTML = "Mag: " + monsterArray[count - 1].monsterFave
     holdingDiv.appendChild(monsterfav);
-
-    let monsterHPuXP : HTMLElement = document.createElement("p");
-    monsterHPuXP.innerHTML = "HP: " + monsterArray[count - 1].monsterHealthPoints + " || XP: " + monsterArray[count - 1].monsterExperience;
-    holdingDiv.appendChild(monsterHPuXP);
-
-    let monsterLvl : HTMLElement = document.createElement("p");
-    monsterLvl.innerHTML = "Level: " + monsterArray[count - 1].monsterLevel;
-    holdingDiv.appendChild(monsterLvl);
 
     let monsterBtn : HTMLElement = document.createElement("BUTTON");    // Erstelle ein <button>-Element
     monsterBtn.innerHTML = "Monster bekämpfen!";                        // Verändere den Inhalt des HTML-Elementes. Der genaue Text ist dabei euch überlassen.
@@ -213,7 +219,7 @@ function monsterGenerateHTML(count : number) // Operator soll erstellt werden, a
 
     monsterBtn.addEventListener(                                       // Füge dem Monster eine Funktion hinzu.
         'click', function() {                                           // Wird bei Maus-Click ausgelöst.
-            fightMonster(count);                                 // Wenn das Monster erstellt wird erhält die Funktion einen Parameter, welcher der aktuellen Anzahl entspricht.
+            fightMonster(0);                                 // Wenn das Monster erstellt wird erhält die Funktion einen Parameter, welcher der aktuellen Anzahl entspricht.
         }, false);                                                      // Ignoriert das false.
 }
 
@@ -253,8 +259,8 @@ function generateMonsterName() : string // string hintendran heißt, dass man in
 // Liefert eine variierende Zahl zurück.
 function generateMonsterHitPoints() : number
 {
-    // Diese Funktion gibt eine zufällige ganze Zahl (zwischen 0 und 10) + 1 zurück.
-    let tempMonsterHP : number = 1 + getRNGNumber(10); 
+    // Diese Funktion gibt eine zufällige ganze Zahl (zwischen 0 und 50) + 1 zurück.
+    let tempMonsterHP : number = 1 + getRNGNumber(50); 
     return tempMonsterHP;
 }
 
@@ -300,23 +306,32 @@ function generateMonsterImage() {
 // Der Spieler kämpft gegen das entsprechende Monster. Er erhält dann Erfahrungspunkte. Wie ändere ich die Reichweite dieser Erfahrungspunkte?? 
 function fightMonster(_index : number)
 {
-    if(monsterArray[_index].monsterLevel <= playerLevel){
-        console.log("Spieler kämpft gegen Monster und gewinnt!");
-        updatePlayerLevel(monsterArray[_index].monsterExperience);
+    if(monsterArray[_index].monsterLevel <= playerLevel)
+    {
+        monsterArray[_index].monsterHealthPoints -= 10;
         playerXP += monsterArray[_index].monsterExperience;
-        monsterArray.splice(_index, 1);
-        updateHTML();
+        updateHTML()
+        
+        if(monsterArray[_index].monsterHealthPoints < 1)
+        {
+            console.log("Spieler kämpft gegen Monster und gewinnt!");
+            //updatePlayerLevel(monsterArray[_index].monsterExperience);
+            updatePlayerLevel(0 + monsterArray[_index].monsterExperience);
+            monsterArray.splice(_index, 1);
+            updateHTML();
+        }
     }
     
-    if(monsterArray[_index].monsterLevel > playerLevel){
+    else (monsterArray[_index].monsterLevel > playerLevel)
+    {
         console.log("Das Monster weigert sich zu verschwinden.");
-        updatePlayerLevel(-monsterArray[_index].monsterExperience);
+        updatePlayerLevel(0 - monsterArray[_index].monsterExperience);
     }
 }
 // Aufgerufen, um das HTML-Element, welches das Spieler-Level darstellt, zu erneuern.
 function updatePlayerLevel(XPchange : number) // jetzt muss für jede update-Player-Level-Funktion ein Argument folgen!!!
-{   
-    playerXP += XPchange; // playerXP = playerXP + XPchange
+{                                                
+    playerXP += XPchange;   
     if (Math.floor(playerXP / playerXPperLevel) + 1 >= 1) // math.floor = rundet auf kleinere Zahl ab / Spieler-Level = XP / XPproLevel, keine Veränderung für größere Reichweite
     {
         playerLevel = Math.floor(playerXP / playerXPperLevel) + 1; // damit nicht bei 0 angefangen wird (LEVEL DARF NICHT UNTER 1 GEHEN)
