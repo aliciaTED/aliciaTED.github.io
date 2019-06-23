@@ -245,7 +245,7 @@ function updatePlayerLevel(XPchange) {
     document.getElementById("xpCounter").innerHTML = "Player-Level: " + playerLevel + " (XP: " + playerXP + " / " + playerXPperLevel + ")"; // Baue den String für die Spieler-Info zusammen
     console.log("Spieler " + playerName + " hat nun Level " + playerLevel + " mit " + playerXP + " (" + playerXPperLevel + " pro Level)"); // Spieler-Level in der Konsole.
     if (playerLevel == 20) {
-        alert("Du hast Level 20 erreicht! Jetzt kannst du von vorne anfangen.");
+        alert("Du hast GENAU Level 20 erreicht und somit gewonnen! Jetzt kannst du von vorne anfangen.");
         playerLevel = 1;
         playerXP = 0;
         monsterArray = [];
