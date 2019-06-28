@@ -62,7 +62,6 @@ function generateMonster() {
         };
         monsterArray.push(newMonster); // Monster wird erst in diesem Schritt zu dem Array hinzugefügt
         console.log(monsterArray[monsterArray.length - 1].monsterExperience); // FEHLER: length war nicht definiert, hätte man auch einfach durch 0 ersetzen können oder komplett löschen // Man kann nur auf Array-Teile zugreifen, welche definiert sind. -1 ist nicht definitiert (und wird es auch nie sein).
-        monsterGenerateHTML(monsterArray.length);
     }
     updateHTML(); // Triggere das Updaten von HTML
 }
@@ -110,7 +109,7 @@ function fightweakestMonster() {
     fightMonster(_indexweakest);
 }
 function monsterGenerateHTMLAII() {
-    for (let i = 1; i <= monsterArray.length; i++) {
+    for (let i = 0; i < monsterArray.length; i++) {
         monsterGenerateHTML(i); // muss sich auf "i" beziehen, damit Aussage nach console.log Sinn ergibt (Du hast 1 Monster gefunden --> Anzahl der Monster 1.)
     }
 }
@@ -121,31 +120,31 @@ function monsterGenerateHTML(count) {
     holdingDiv.setAttribute("class", "monster"); // Klasse für Visuals.
     document.getElementById(monsterHolder).appendChild(holdingDiv); // Das HTML-Element muss erst noch zu einem Objekt hinzugefügt werden, in diesem Fall mit der id "monsterHoldingCell"
     let monsterName = document.createElement("p"); // Generiere einen <p>
-    monsterName.innerHTML = monsterArray[count - 1].monsterName; // Inhalt des <p>: Monster-Name des letzten Monsters im Array.
+    monsterName.innerHTML = monsterArray[count].monsterName; // Inhalt des <p>: Monster-Name des letzten Monsters im Array.
     holdingDiv.appendChild(monsterName); // Füge das <p> zum HTML-Dokument hinzu, indem es dem holding-Div angefügt wird.
     let monsterMod = document.createElement("p"); // Generiere einen <p>
-    monsterMod.innerHTML = monsterArray[count - 1].monsterModifier[0] + ", " + monsterArray[count - 1].monsterModifier[1]; // Inhalt des <p>: Monster-Modifizierer null und eins
+    monsterMod.innerHTML = monsterArray[count].monsterModifier[0] + ", " + monsterArray[count].monsterModifier[1]; // Inhalt des <p>: Monster-Modifizierer null und eins
     holdingDiv.appendChild(monsterMod); // Füge das <p> zum HTML-Dokument hinzu, indem es dem holding-Div angefügt wird.
     let monsterImg = document.createElement("img"); // Erstelle ein <img>-Element
-    monsterImg.setAttribute("src", "imgs/" + monsterArray[count - 1].monsterImage); // Der Pfad für das Bild muss über setAttribute festgelegt werden. Der Bildpfad kann natürlich auch anders aussehen.
+    monsterImg.setAttribute("src", "imgs/" + monsterArray[count].monsterImage); // Der Pfad für das Bild muss über setAttribute festgelegt werden. Der Bildpfad kann natürlich auch anders aussehen.
     monsterImg.setAttribute("alt", "Schreckliches Monster"); // Das alt für das Bild wird hier festgelegt.
     holdingDiv.appendChild(monsterImg); // Füge das Bild zu dem holding-div hinzu (<div>, welche ein paar Zeilen zuvor erstellt worden ist)
     let monsterLvl = document.createElement("p");
-    monsterLvl.innerHTML = "Level " + monsterArray[count - 1].monsterLevel;
+    monsterLvl.innerHTML = "Level " + monsterArray[count].monsterLevel;
     holdingDiv.appendChild(monsterLvl);
     let monsterHP = document.createElement("p");
-    monsterHP.innerHTML = "HP " + monsterArray[count - 1].monsterHealthPoints;
+    monsterHP.innerHTML = "HP " + monsterArray[count].monsterHealthPoints;
     monsterHP.style.backgroundColor = "#02a310d0";
-    monsterHP.style.width = monsterArray[count - 1].monsterHealthPoints + "%";
+    monsterHP.style.width = monsterArray[count].monsterHealthPoints + "%";
     holdingDiv.appendChild(monsterHP);
     let monsterXP = document.createElement("p");
-    monsterXP.innerHTML = "XP: " + monsterArray[count - 1].monsterExperience;
+    monsterXP.innerHTML = "XP: " + monsterArray[count].monsterExperience;
     holdingDiv.appendChild(monsterXP);
     let monsteratt = document.createElement("p");
-    monsteratt.innerHTML = "Attacke: " + monsterArray[count - 1].monsterAttack;
+    monsteratt.innerHTML = "Attacke: " + monsterArray[count].monsterAttack;
     holdingDiv.appendChild(monsteratt);
     let monsterfav = document.createElement("p");
-    monsterfav.innerHTML = "Mag: " + monsterArray[count - 1].monsterFave;
+    monsterfav.innerHTML = "Mag: " + monsterArray[count].monsterFave;
     holdingDiv.appendChild(monsterfav);
     let monsterBtn = document.createElement("BUTTON"); // Erstelle ein <button>-Element
     monsterBtn.innerHTML = "Monster bekämpfen!"; // Verändere den Inhalt des HTML-Elementes. Der genaue Text ist dabei euch überlassen.
@@ -154,7 +153,7 @@ function monsterGenerateHTML(count) {
     console.log("Aktuelle Anzahl an Monstern: " + monsterCount);
     monsterBtn.addEventListener(// Füge dem Monster eine Funktion hinzu.
     'click', function () {
-        fightMonster(0); // Wenn das Monster erstellt wird erhält die Funktion einen Parameter, welcher der aktuellen Anzahl entspricht.
+        fightMonster(count); // Wenn das Monster erstellt wird erhält die Funktion einen Parameter, welcher der aktuellen Anzahl entspricht.
     }, false); // Ignoriert das false.
 }
 // Wird für den Zugriff auf eine zufällige Stelle in einem Array aufgerufen.
@@ -216,21 +215,20 @@ function generateMonsterImage() {
 // Aufgerufen, wenn man auf den Button klickt.
 // Der Spieler kämpft gegen das entsprechende Monster. Er erhält dann Erfahrungspunkte. Wie ändere ich die Reichweite dieser Erfahrungspunkte?? 
 function fightMonster(_index) {
-    if (monsterArray[_index].monsterLevel <= playerLevel) {
+    let monsterLevel = monsterArray[_index].monsterLevel;
+    console.log("Fighting Monster of Level " + monsterLevel);
+    if (monsterLevel <= playerLevel) {
         monsterArray[_index].monsterHealthPoints -= 10;
         playerXP += monsterArray[_index].monsterExperience;
         updateHTML();
         if (monsterArray[_index].monsterHealthPoints < 1) {
             console.log("Spieler kämpft gegen Monster und gewinnt!");
-            //updatePlayerLevel(monsterArray[_index].monsterExperience);
             updatePlayerLevel(0 + monsterArray[_index].monsterExperience);
             monsterArray.splice(_index, 1);
             updateHTML();
         }
     }
-    else
-        (monsterArray[_index].monsterLevel > playerLevel);
-    {
+    else if (monsterLevel > playerLevel) {
         console.log("Das Monster weigert sich zu verschwinden.");
         updatePlayerLevel(0 - monsterArray[_index].monsterExperience);
     }
@@ -254,9 +252,8 @@ function updatePlayerLevel(XPchange) {
     }
 }
 // Funktion zum Pushen
-let newMonsterforPush = "MONSTER";
 function pushpush() {
-    Monsters.push(newMonsterforPush);
+    Monsters.push("Monster");
     console.log(Monsters);
 }
 //# sourceMappingURL=62-TS-Example.js.map
