@@ -91,7 +91,10 @@ function dealCards (){
 }
 
 function updateHTML () { // umfasst Erstellung und Leerung der HTML-Elemente
-    clearHTML();
+    clearHTML("player");
+    clearHTML("computer");
+    clearHTML("discard");
+    clearHTML("draw");
     generateHTML();
 }
 
@@ -102,7 +105,7 @@ function generateHTML () {
     for (let i = 0; i < computerHand.length; i++) {
         generateComputerHand (i)
     }
-    for (let i = 0; i < playerHand.length; i++) {
+    for (let i = 0; i < discardPile.length; i++) {
         generateDiscardPile (i)
     }
 }
@@ -139,7 +142,7 @@ function generateDrawPile (numberOfCard:number) {
 
 function generateDiscardPile (numberOfCard:number) {
     let holdingDivDiscard : HTMLElement = document.createElement("div");
-    holdingDivDiscard.setAttribute("id", "discard")
+    holdingDivDiscard.setAttribute("id", "discard" +(numberOfCard + 1));
     holdingDivDiscard.setAttribute("class", "card");
     document.getElementById("discard").appendChild(holdingDivDiscard);
 
@@ -149,7 +152,27 @@ function generateDiscardPile (numberOfCard:number) {
     newCardNumber.setAttribute("class", "cardNumber");
     holdingDivDiscard.appendChild(newCardNumber);
 }
-  
+
+// Funktion, um HTML-Elemente zu löschen (nötig für Neustart eines Spiels)
+function clearHTML(cardClass : string) {
+    let toBeCleared = document.getElementById(cardClass);
+    while(toBeCleared.firstChild){
+        toBeCleared.removeChild(toBeCleared.firstChild)
+    }
+}
+
+function playCard() {
+    // auswählen, ob Spieler oder Computer an der Reihe ist
+    // für Spieler: ausgewählte Karte mit Ablagestapel vergleichen
+    // wenn gespielt werden kann --> Zug zu Ende, evtl. gewonnen
+    // wenn nicht gespielt werden kann --> Karte aufnehmen, Zug zu Ende
+    // Computer spielt, gleiches Prinzip
+
+}
+
+function drawCard(){
+
+}
 // fehlende Funktionen: drawCard für Kartenstapel; playCards (von Spieler & Computer), clearHTML (um Spiel mit Button neu zu starten), Funktion mit Alert, dass man gewonnen bzw. verloren hat (und dann einfach Neustart???)
 
 /*function playCard(array : Card) {
