@@ -23,15 +23,14 @@ window.onload = function () {
 
 // Funktion zum Starten des Spiels, d.h. Karten mischen und an beide Spieler aufteilen, sowie 1. Karte auf Ablagestapel legen
 function startGame (){
+    let element = <HTMLInputElement> document.getElementById("start");
+    element.disabled = true; // Start-Button wird bis zum Ende des Spiels ausgeschaltet --> erst wieder eingeschaltet, wenn Spieler gewinnt oder verliert
     clearAllHTML();
     generatePiles (); // alle Karten generieren
 
     shufflePile(drawPile); // Kartenstapel mischen
     dealCards(); // Karten verteilen
-    updateHTML(computerHand); 
-    updateHTML(playerHand);
-    updateHTML(discardPile);
-    updateHTML(drawPile) // damit werden auch die Karten für die einzelnen Piles genereriert und angezeigt
+    updateHTML(); // damit werden auch die Karten für die einzelnen Piles genereriert und angezeigt
 }
 
 function generatePiles() { // alle Karten sollen erstellt und in den drawPile eingefügt werden
@@ -111,22 +110,8 @@ function dealCards (){
     console.log("Alle Karten wurden verteilt.")
 }
 
-function updateHTML (array : Card[]) { // umfasst Erstellung und Leerung der HTML-Elemente, muss bei jeder Änderung des HTML durch Funktionen aufgerufen werden
-    let cardClass : string = "";
-    if (array == playerHand) {
-        cardClass = "player";
-    }
-    else if (array == computerHand){
-        cardClass = "computer";
-    }
-    else if (array == discardPile){
-        cardClass = "discard";
-    }
-    else if (array == drawPile){
-        cardClass = "draw";
-    }
-    clearHTML(cardClass);
-    //clearAllHTML();
+function updateHTML () { // umfasst Erstellung und Leerung der HTML-Elemente, muss bei jeder Änderung des HTML durch Funktionen aufgerufen werden
+    clearAllHTML();
     generateHTML();
 }
 
@@ -146,7 +131,7 @@ function generatePlayerHand (numberOfCard : number){
     let holdingDivPlayer : HTMLElement = document.createElement("div"); // div mithilfe von CSS gestyled stellt jede Karte dar
     holdingDivPlayer.setAttribute("id", "player" + (numberOfCard + 1)) // Zugriff auf Player-Section, in der div erstellt werden soll
     holdingDivPlayer.setAttribute("class", playerHand[numberOfCard].cardColor); // Zugriff auf Farbklasse inkl. generelles Styling einer Karte
-    holdingDivPlayer.addEventListener("click", function () { playCard(playerHand[numberOfCard]); }, false); // Funktion playCard() wird aufgerufen, Parameter (Kartenzahl) kann eingesetzt werden
+    holdingDivPlayer.addEventListener("click", function () { playCard(numberOfCard); }, false); // Funktion playCard() wird aufgerufen, Parameter (Kartenzahl) kann eingesetzt werden
     document.getElementById("player").appendChild(holdingDivPlayer); // erstellte Karte wird zur Player-Section hinzugefügt (Zugriff über ID)
     
     // Festlegung der Wertigkeit/Zahl der Karte
@@ -190,78 +175,86 @@ function generateDiscardPile () {
     holdingDivDiscard.appendChild(newCardNumber);
 }
   
-// fehlende Funktionen: drawCard für Kartenstapel; playCards (von Spieler & Computer), clearHTML (um Spiel mit Button neu zu starten), Funktion mit Alert, dass man gewonnen bzw. verloren hat (und dann einfach Neustart???)
+// fehlende Funktionen: drawCard für Kartenstapel; playCards (von Spieler & Computer), clearHTML (um Spiel mit Button neu zu starten)
 
-function playCard(playedCard : Card) {
+function playCard(nrOfcardPlayed : number) {
     let topCard = discardPile[discardPile.length-1];
+    let playedCard = playerHand[nrOfcardPlayed];
         if(topCard.cardColor == playedCard.cardColor || topCard.cardNumber == playedCard.cardNumber){ // überprüfen, ob Karte auf discardPile abgelegt werden darf --> entweder gleiche Farbe ODER gleiche Zahl ODER beides
             discardPile.push(playedCard); // gespielte Karte zum Ablagestapel hinzufügen
             topCard = playedCard;
             console.log(topCard);
-            playerHand.splice(0,1) // gespielte Karte aus der Spielerhand entfernen
-            updateHTML(playerHand);
-            updateHTML(discardPile);
+            playerHand.splice(nrOfcardPlayed,1) // gespielte Karte aus der Spielerhand entfernen
+            updateHTML();
+            console.log(playerHand);
+            console.log(discardPile);
             console.log("Spieler hat eine Karte abgelegt.");
-            computerPlaysCard();
-        } else if (playerHand.length > 1){
-            winOrLoss(); // Funktion, die über Gewinn entscheiden bzw. diesen überprüft
-        } 
-        else {
+            if (playerHand.length < 1){
+                winOrLoss(); // Funktion, die über Gewinn entscheiden bzw. diesen überprüft
+            } else {setTimeout(computerPlaysCard, 450)} // nach kurzer Verzögerung wird Funktion für Gegnerzug aufgerufen/ausgeführt
+        } else {
             alert("Diese Karte kann nicht abgelegt werden. Du musst ziehen.")
-            console.log("Karte kann nicht abgelegt werden. Spieler zieht & Computer ist dran.");
-            updateHTML(playerHand);
-            updateHTML(drawPile);
-            computerPlaysCard();    
+            console.log("Karte kann nicht abgelegt werden. Spieler zieht & Computer ist dran."); 
         }
     }
 
 function computerPlaysCard(){ // ähnliches Prinzip wie bei playCard() --> Vergleichen, ob eine Handkarte gelegt werden kann, dann entsprechende Aktion ausführen
+    let playableCard : boolean = false; // Kann (bzw. konnte) Karte gelegt werden? Ja = true; nein = false!
     let topCard = discardPile[discardPile.length - 1];
-    for(let i = 0; i < computerHand.length; i++){
+    let firstDraw = drawPile[drawPile.length - 1];
+    for(let i = 0; i < computerHand.length; i++){ // mit Schleife überprüfen, welche Karte gespielt werden kann
         if (computerHand[i].cardColor == topCard.cardColor || computerHand[i].cardNumber == topCard.cardNumber){
             topCard = computerHand[i];
             discardPile.push(topCard);
             computerHand.splice(i, 1);
-            updateHTML(computerHand);
-            updateHTML(discardPile);
-        } else {drawCard();
-        console.log("Computer hat eine Karte gezogen. Der Spieler ist wieder an der Reihe.")}
-    }
+            updateHTML();
+            console.log(discardPile);
+            console.log(computerHand);
+            if (computerHand.length == 0) { // überprüfen, ob Computer gewonnen hat
+                winOrLoss();
+            } else {
+                playableCard = true; // wichtig, um zu erkennen, dass Karte abgelegt werden konnte
+            }
+            break;
+        }
+        if(playableCard = false){ // d.h. Karte konnte nicht gelegt werden
+            computerHand.push(firstDraw);
+            drawPile.splice(drawPile.length-1,1);
+            updateHTML();
+            console.log("Computer hat eine Karte gezogen. Der Spieler ist wieder an der Reihe.")
+        }
+    }   
 }
 
 function drawCard(){ // Spieler kann eine Karte ziehen, soll oberste vom drawPile sein, daher length-1
     let drawnCard = drawPile[drawPile.length - 1];
-    playerHand.push(drawnCard);
-    drawPile.splice(drawPile.length - 1,1);
-    updateHTML(playerHand);
-    updateHTML(drawPile);
-    console.log("Der Spieler hat eine Karte gezogen. (" + drawnCard.cardNumber + " " + drawnCard.cardColor + ")")
+        playerHand.push(drawnCard);
+        drawPile.splice(drawPile.length - 1,1);
+        updateHTML();
+        console.log("Der Spieler hat eine Karte gezogen. (" + drawnCard.cardNumber + " " + drawnCard.cardColor + ")")
+        console.log(playerHand);
+        console.log(drawPile);
+        computerPlaysCard();
 }
 
 function clearAllHTML(){ // wird noch in updateHTML() aufgerufen
-    clearHTML("computer");
+    clearHTML();
+    /*clearHTML("computer");
     clearHTML("player");
     clearHTML("draw");
-    clearHTML("discard");
-    playerHand = [];
-    computerHand = [];
-    discardPile = [];
-    drawPile = [];
-    let topCard: Card;
-    let player: boolean = true;
-    let playedCard: boolean = false;
+    clearHTML("discard");*/
 }
 
 // Parameter cardClass greift auf die einzelnen Bereiche zu, die geleert werden sollen
-function clearHTML(cardClass:string) { // soll alle HTML-Elemente bei erneutem Drücken des Start-Knopfes löschen und neu einfügen
-  let toBeCleared:HTMLElement = document.getElementById(cardClass);
+function clearHTML() { // soll alle HTML-Elemente bei erneutem Drücken des Start-Knopfes löschen und neu einfügen
+  /* let toBeCleared:HTMLElement = document.getElementById(cardClass);
    if(toBeCleared.hasChildNodes){
         while (toBeCleared.firstChild) {
             toBeCleared.removeChild(toBeCleared.firstChild);
         }
    }
-}
-   /* // Computerkarten leeren
+}*/
+    // Computerkarten leeren
     let computerHandHTML : HTMLElement = document.getElementById("computer");
     while (computerHandHTML.hasChildNodes()){
         computerHandHTML.removeChild(computerHandHTML.firstChild);
@@ -283,7 +276,7 @@ function clearHTML(cardClass:string) { // soll alle HTML-Elemente bei erneutem D
     while (discardPileHTML.hasChildNodes()){
         discardPileHTML.removeChild(discardPileHTML.firstChild);
     }
-}*/
+}
 
 function winOrLoss () { // Spiel soll bei Gewinn von Spieler oder Computer wieder von vorne anfangen
     if(playerHand.length < 1) {
@@ -292,19 +285,17 @@ function winOrLoss () { // Spiel soll bei Gewinn von Spieler oder Computer wiede
         computerHand = [];
         discardPile = [];
         drawPile = [];
-        updateHTML(playerHand);
-        updateHTML(computerHand);
-        updateHTML(discardPile);
-        updateHTML(drawPile);
+        let element = <HTMLInputElement> document.getElementById("start");
+        element.disabled = false;
+        updateHTML();
     } else if (computerHand.length < 1) {
         alert("Du hast verloren! Möchtest du es noch einmal versuchen?");
         playerHand = [];
         computerHand = [];
         discardPile = [];
         drawPile = [];
-        updateHTML(playerHand);
-        updateHTML(computerHand);
-        updateHTML(discardPile);
-        updateHTML(drawPile);
+        let element = <HTMLInputElement> document.getElementById("start");
+        element.disabled = false;
+        updateHTML();
     }
 }
