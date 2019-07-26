@@ -78,9 +78,21 @@ function dealCards (){
     drawPile.splice(0,1)
     }
 
-function updateHTML () {
+function updateHTML () { // umfasst Erstellung und Leerung der HTML-Elemente
     clearHTML();
     generateHTML();
+}
+
+function generateHTML () {
+    for (let i = 0; i < playerHand.length; i++) {
+        generatePlayerHand (i)
+    }
+    for (let i = 0; i < computerHand.length; i++) {
+        generateComputerHand (i)
+    }
+    for (let i = 0; i < playerHand.length; i++) {
+        generateDiscardPile (i)
+    }
 }
 // Funktionen zum Erzeugen der HTML-Elemente (d.h. <div>, die mit CSS zu Karten gestyled wurden; Verwendung von AppendChild hilfreich, Aufruf durch updateHTML()
 function generatePlayerHand (numberOfCard : number){
@@ -97,21 +109,21 @@ function generatePlayerHand (numberOfCard : number){
     holdingDivPlayer.appendChild(newCardNumber);
 }
 
-function generateComputerHand () {
+function generateComputerHand (numberOfCard : number) {
     let holdingDivComputer : HTMLElement = document.createElement("div");
     holdingDivComputer.setAttribute("class", "card");
     document.getElementById("computer").appendChild(holdingDivComputer);
 }
 
-function generateDrawPile () {
+function generateDrawPile (numberOfCard:number) {
     let holdingDivDraw : HTMLElement = document.createElement("div");
     holdingDivDraw.setAttribute("id", "draw");
     holdingDivDraw.setAttribute("class", "hiddenCard");
-    //holdingDivDraw.addEventListener("click", drawCard());
+    holdingDivDraw.addEventListener("click", drawCard(numberOfCard));
     document.getElementById("draw").appendChild(holdingDivDraw);
 }
 
-function generateDiscardPile () {
+function generateDiscardPile (numberOfCard:number) {
     let holdingDivDiscard : HTMLElement = document.createElement("div");
     holdingDivDiscard.setAttribute("class", "card");
     document.getElementById("discard").appendChild(holdingDivDiscard);
@@ -119,11 +131,11 @@ function generateDiscardPile () {
   
 // Funktionen, um Karten auszuspielen
 
-function playCard(array : Card) {
+/*function playCard(array : Card) {
     if () {
 
     }
 }
   function gameWon () { // Spiel soll bei Gewinn von Spieler oder Computer wieder von vorne anfangen
 
-  }
+  }*/

@@ -68,6 +68,17 @@ function updateHTML() {
     clearHTML();
     generateHTML();
 }
+function generateHTML() {
+    for (let i = 0; i < playerHand.length; i++) {
+        generatePlayerHand(i);
+    }
+    for (let i = 0; i < computerHand.length; i++) {
+        generateComputerHand(i);
+    }
+    for (let i = 0; i < playerHand.length; i++) {
+        generateDiscardPile(i);
+    }
+}
 // Funktionen zum Erzeugen der HTML-Elemente (d.h. <div>, die mit CSS zu Karten gestyled wurden; Verwendung von AppendChild hilfreich, Aufruf durch updateHTML()
 function generatePlayerHand(numberOfCard) {
     let holdingDivPlayer = document.createElement("div");
@@ -81,28 +92,30 @@ function generatePlayerHand(numberOfCard) {
     newCardNumber.setAttribute("class", "cardNumber");
     holdingDivPlayer.appendChild(newCardNumber);
 }
-function generateComputerHand() {
+function generateComputerHand(numberOfCard) {
     let holdingDivComputer = document.createElement("div");
     holdingDivComputer.setAttribute("class", "card");
     document.getElementById("computer").appendChild(holdingDivComputer);
 }
-function generateDrawPile() {
+function generateDrawPile(numberOfCard) {
     let holdingDivDraw = document.createElement("div");
     holdingDivDraw.setAttribute("id", "draw");
     holdingDivDraw.setAttribute("class", "hiddenCard");
-    //holdingDivDraw.addEventListener("click", drawCard());
+    holdingDivDraw.addEventListener("click", drawCard(numberOfCard));
     document.getElementById("draw").appendChild(holdingDivDraw);
 }
-function generateDiscardPile() {
+function generateDiscardPile(numberOfCard) {
     let holdingDivDiscard = document.createElement("div");
     holdingDivDiscard.setAttribute("class", "card");
     document.getElementById("discard").appendChild(holdingDivDiscard);
 }
 // Funktionen, um Karten auszuspielen
-function playCard(array) {
+/*function playCard(array : Card) {
     if () {
+
     }
 }
-function gameWon() {
-}
+  function gameWon () { // Spiel soll bei Gewinn von Spieler oder Computer wieder von vorne anfangen
+
+  }*/ 
 //# sourceMappingURL=Kartenspiel.js.map
