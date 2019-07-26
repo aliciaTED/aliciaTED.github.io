@@ -79,7 +79,7 @@ function dealCards (){
     }
 
 function updateHTML () { // umfasst Erstellung und Leerung der HTML-Elemente
-    clearHTML();
+   // clearHTML();
     generateHTML();
 }
 
@@ -98,10 +98,10 @@ function generateHTML () {
 function generatePlayerHand (numberOfCard : number){
     let holdingDivPlayer : HTMLElement = document.createElement("div");
     holdingDivPlayer.setAttribute("class", "card");
-    holdingDivPlayer.addEventListener("click", playCard(numberOfCard), false);
+    //holdingDivPlayer.addEventListener("click", playCard(numberOfCard), false);
     document.getElementById("player").appendChild(holdingDivPlayer);
 
-    let tempCardNumber: string = playerHand[numberOfCard].cardNumber + " "
+    let tempCardNumber: number = playerHand[numberOfCard].cardNumber;
     // Festlegung der Wertigkeit/Zahl der Karte
     let newCardNumber : HTMLElement = document.createElement("p");
     newCardNumber.innerHTML = tempCardNumber + "";
@@ -119,8 +119,15 @@ function generateDrawPile (numberOfCard:number) {
     let holdingDivDraw : HTMLElement = document.createElement("div");
     holdingDivDraw.setAttribute("id", "draw");
     holdingDivDraw.setAttribute("class", "hiddenCard");
-    holdingDivDraw.addEventListener("click", drawCard(numberOfCard));
+    //holdingDivDraw.addEventListener("click", drawCard(numberOfCard));
     document.getElementById("draw").appendChild(holdingDivDraw);
+
+    let tempCardNumber: number = drawPile[numberOfCard].cardNumber;
+    // Festlegung der Wertigkeit/Zahl der Karte
+    let newCardNumber : HTMLElement = document.createElement("p");
+    newCardNumber.innerHTML = tempCardNumber + "";
+    newCardNumber.setAttribute("class", "cardNumber");
+    holdingDivDraw.appendChild(newCardNumber);
 }
 
 function generateDiscardPile (numberOfCard:number) {
