@@ -275,7 +275,7 @@ function clearHTML() { // soll alle HTML-Elemente bei erneutem Drücken des Star
     }
 }
 
-function winOrLoss () { // Spiel soll bei Gewinn von Spieler oder Computer wieder von vorne anfangen
+function winOrLoss () { // Spiel soll bei Gewinn von Spieler oder Computer wieder von vorne anfangen, d.h. alle Arrays müssen leer sein und Button kann wieder geklickt werden
     if(playerHand.length == 0) {
         alert("Du hast gewonnen! Möchtest du nochmal spielen?");
         playerHand = [];
