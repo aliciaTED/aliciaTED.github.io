@@ -126,6 +126,11 @@ header > p {
 	box-shadow: 0 4px 16px 0 #363333;
 }
 
+.hiddenCardtransition {
+	margin-bottom: 0.5%;
+	transition: ease, 0.5s;
+}
+
 .cardNumber {
 	color: #000;
 	font-size: 3.5em;

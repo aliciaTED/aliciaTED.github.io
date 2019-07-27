@@ -292,7 +292,8 @@ function winOrLoss () { // Spiel soll bei Gewinn von Spieler oder Computer wiede
     }
 }
 
-function reshufflePile() {
+////// das hier ist mein Ansatz für das erneute Mischen, allerdings scheint es nicht zu funktionieren. Ich lasse es mal drin, da der Rest vom Code nicht beeinflusst wird und alles normal funktioniert, bis eben der Kartenstapel leer ist. Wird evtl. noch mal überarbeitet, ansonsten gibt's den Bonuspunkt halt nicht. :D
+function reshufflePile() {  
     let topCard = discardPile[discardPile.length - 1]; // oberste Karte zwischenspeichern, damit diese nicht verloren geht
     discardPile.splice(discardPile.length - 1, 1); // oberste Karte entfernen, damit diese nicht mitgemischt/übertragen wird
     while(discardPile.length>0){ // while-Schleife läuft so lange, bis discardPile leer ist und vollständig an drawPile übertragen wurde
