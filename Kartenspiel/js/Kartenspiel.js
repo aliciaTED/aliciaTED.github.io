@@ -262,13 +262,13 @@ function winOrLoss() {
 }
 function reshufflePile() {
     let topCard = discardPile[discardPile.length - 1]; // oberste Karte zwischenspeichern, damit diese nicht verloren geht
-    discardPile.pop();
+    discardPile.splice(discardPile.length - 1, 1); // oberste Karte entfernen, damit diese nicht mitgemischt/übertragen wird
     while (discardPile.length > 0) { // while-Schleife läuft so lange, bis discardPile leer ist und vollständig an drawPile übertragen wurde
-        drawPile.push(discardPile[discardPile.length - 1]);
-        discardPile.pop();
+        drawPile.push(discardPile[discardPile.length - 1]); // Karten nach und nach zum drawPile hinzufügen
+        discardPile.splice(discardPile.length - 1, 1); // Karten aus dem discardPile löschen
     }
-    discardPile.push(topCard);
-    console.log("Karten wurden neu gemischt.");
+    discardPile.push(topCard); // oberste Karte vom discardPile wieder hinzufügen bzw. bestehen lassen
     shufflePile(drawPile); // am Ende wird der neue drawPile gemischt
+    console.log("Karten wurden neu gemischt.");
 }
 //# sourceMappingURL=Kartenspiel.js.map
