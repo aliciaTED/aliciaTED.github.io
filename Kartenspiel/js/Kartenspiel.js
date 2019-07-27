@@ -121,13 +121,13 @@ function generatePlayerHand(numberOfCard) {
 function generateComputerHand(numberOfCard) {
     let holdingDivComputer = document.createElement("div");
     holdingDivComputer.setAttribute("id", "computer" + (numberOfCard + 1));
-    holdingDivComputer.setAttribute("class", computerHand[numberOfCard].cardColor); // soll verdeckt angezeigt werden --> hiddenCard
+    holdingDivComputer.setAttribute("class", "hiddenCard"); // soll verdeckt angezeigt werden --> hiddenCard
     document.getElementById("computer").appendChild(holdingDivComputer);
     // Überprüfen der Computer-Hand, bis Code vollständig
-    let newCardNumber = document.createElement("p");
-    newCardNumber.innerHTML = computerHand[numberOfCard].cardNumber + "";
-    newCardNumber.setAttribute("class", "cardNumber");
-    holdingDivComputer.appendChild(newCardNumber);
+    /* let newCardNumber : HTMLElement = document.createElement("p");
+      newCardNumber.innerHTML = computerHand[numberOfCard].cardNumber + "";
+      newCardNumber.setAttribute("class", "cardNumber");
+      holdingDivComputer.appendChild(newCardNumber);*/
 }
 function generateDrawPile() {
     let holdingDivDraw = document.createElement("div");
@@ -160,7 +160,7 @@ function playCard(nrOfcardPlayed) {
         console.log(playerHand);
         console.log(discardPile);
         console.log("Spieler hat eine Karte abgelegt.");
-        if (playerHand.length < 1) {
+        if (playerHand.length == 0) {
             winOrLoss(); // Funktion, die über Gewinn entscheiden bzw. diesen überprüft
         }
         else {
@@ -173,31 +173,29 @@ function playCard(nrOfcardPlayed) {
     }
 }
 function computerPlaysCard() {
-    let playableCard = false; // Kann (bzw. konnte) Karte gelegt werden? Ja = true; nein = false!
+    let playedCard = false; // Konnte Computer eine Karte legen? Ja --> true; nein --> false
     let topCard = discardPile[discardPile.length - 1];
-    let firstDraw = drawPile[drawPile.length - 1];
-    for (let i = 0; i < computerHand.length; i++) { // mit Schleife überprüfen, welche Karte gespielt werden kann
-        if (computerHand[i].cardColor == topCard.cardColor || computerHand[i].cardNumber == topCard.cardNumber) {
+    for (let i = 0; i < computerHand.length; i++) {
+        if (computerHand[i].cardColor == topCard.cardColor || computerHand[i].cardNumber == topCard.cardNumber) { // Computer kann Karte legen, wenn Farbe oder Kartenzahl übereinstimmen
             topCard = computerHand[i];
             discardPile.push(topCard);
             computerHand.splice(i, 1);
-            updateHTML();
-            console.log(discardPile);
-            console.log(computerHand);
-            if (computerHand.length == 0) { // überprüfen, ob Computer gewonnen hat
+            setTimeout(function () { updateHTML(); }, 500);
+            if (computerHand.length == 0) { // überprüfen, ob Computer gewonnen hat, d.h. keine Karten mehr auf der Hand
                 winOrLoss();
             }
             else {
-                playableCard = true; // wichtig, um zu erkennen, dass Karte abgelegt werden konnte
+                playedCard = true; // Karte konnte gelegt werden (true)
             }
             break;
         }
-        if (playableCard = false) { // d.h. Karte konnte nicht gelegt werden
-            computerHand.push(firstDraw);
-            drawPile.splice(drawPile.length - 1, 1);
-            updateHTML();
-            console.log("Computer hat eine Karte gezogen. Der Spieler ist wieder an der Reihe.");
-        }
+    }
+    if (playedCard == false) { // keine Karte aus der Computerhand kann abgelegt werden (false), d.h. Computer muss eine Karte ziehen
+        let drawnCard = drawPile[drawPile.length - 1];
+        computerHand.push(drawnCard);
+        drawPile.splice(drawPile.length - 1, 1);
+        setTimeout(function () { updateHTML(); }, 450);
+        console.log("Computer hat eine Karte gezogen. (" + drawnCard.cardNumber + " " + drawnCard.cardColor + ")");
     }
 }
 function drawCard() {
@@ -210,22 +208,17 @@ function drawCard() {
     console.log(drawPile);
     computerPlaysCard();
 }
+function computerDrawsCard() {
+    let firstDraw = drawPile[drawPile.length - 1];
+    computerHand.push(firstDraw);
+    drawPile.splice(drawPile.length - 1, 1);
+    updateHTML();
+    console.log("Computer hat eine Karte gezogen. (" + firstDraw.cardNumber + firstDraw.cardColor + ")");
+}
 function clearAllHTML() {
     clearHTML();
-    /*clearHTML("computer");
-    clearHTML("player");
-    clearHTML("draw");
-    clearHTML("discard");*/
 }
-// Parameter cardClass greift auf die einzelnen Bereiche zu, die geleert werden sollen
 function clearHTML() {
-    /* let toBeCleared:HTMLElement = document.getElementById(cardClass);
-     if(toBeCleared.hasChildNodes){
-          while (toBeCleared.firstChild) {
-              toBeCleared.removeChild(toBeCleared.firstChild);
-          }
-     }
-  }*/
     // Computerkarten leeren
     let computerHandHTML = document.getElementById("computer");
     while (computerHandHTML.hasChildNodes()) {
