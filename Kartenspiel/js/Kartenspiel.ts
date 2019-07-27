@@ -13,7 +13,6 @@ let computerHand : Card [] = []; // Hand des Computers
 let playerHand : Card [] = []; // Hand des Spielers
 
 let topCard: Card; // oberste Karte auf dem discardPile(Ablagestapel)
-let player: boolean; // wichtig, um zu definieren, ob Player gerade an der Reihe ist und Karten ablegen bzw. aufnehmen kann
 let playedCard: boolean = false; //Karten, die bereits gespielt/aufgenommen wurden
 
 window.onload = function () {
@@ -23,6 +22,7 @@ window.onload = function () {
 
 // Funktion zum Starten des Spiels, d.h. Karten mischen und an beide Spieler aufteilen, sowie 1. Karte auf Ablagestapel legen
 function startGame (){
+    alert("Spielregeln:\n\nDu spielst gegen einen einfachen Computer. Das Spiel folgt einem ähnlichen Prinzip wie Uno, nur ohne Sonderkarten. Karten gleicher Farbe bzw. gleicher Zahl können also aufeinander gelegt werden. Wenn du nicht kannst, musst du eine Karte ziehen. Wer zuerst keine Karten mehr hat, gewinnt.\n\nViel Spaß!")
     let element = <HTMLInputElement> document.getElementById("start");
     element.disabled = true; // Start-Button wird bis zum Ende des Spiels ausgeschaltet --> erst wieder eingeschaltet, wenn Spieler gewinnt oder verliert
     clearAllHTML();
@@ -64,18 +64,18 @@ function generatePiles() { // alle Karten sollen erstellt und in den drawPile ei
    console.log("Karten wurden erstellt und in den Stapel eingefügt.")
 }
 
-function shufflePile(array : Card []) { // Karten nach Generierung einmal mischen [Verwendung des Fisher-Yates-Shuffle-Algorithmus]
-    let m = array.length, t, i;
-    while(m) {
-        i = Math.floor(Math.random() * m--);
+function shufflePile(pile : Card []) { // Karten nach Generierung einmal mischen [Verwendung des Fisher-Yates-Shuffle-Algorithmus]
+    let m = pile.length, t, i;
+    while(m) { // ungemischte Karten als Abbruchskriterium
+        i = Math.floor(Math.random() * m--); // Zugriff auf zufällige Karte
 
-        t = array[m];
-        array[m] = array[i];
-        array[i] = t;
+        // zufällige Karte tauschen --> mischen
+        t = pile[m];
+        pile[m] = pile[i];
+        pile[i] = t;
     }
-    console.log(drawPile);
     console.log("Karten wurden gemischt.")
-    return array;
+    return pile;
 
     //Durstenfeld-Shuffle, ändert ursprüngliches Array, daher lieber Fisher-Yates-Shuffle verwenden
     /*let j, x, i;
@@ -175,10 +175,8 @@ function generateDiscardPile () {
     holdingDivDiscard.appendChild(newCardNumber);
 }
   
-// fehlende Funktionen: drawCard für Kartenstapel; playCards (von Spieler & Computer), clearHTML (um Spiel mit Button neu zu starten)
-
 function playCard(nrOfcardPlayed : number) {
-    let topCard = discardPile[discardPile.length-1];
+    topCard = discardPile[discardPile.length-1];
     let playedCard = playerHand[nrOfcardPlayed];
         if(topCard.cardColor == playedCard.cardColor || topCard.cardNumber == playedCard.cardNumber){ // überprüfen, ob Karte auf discardPile abgelegt werden darf --> entweder gleiche Farbe ODER gleiche Zahl ODER beides
             discardPile.push(playedCard); // gespielte Karte zum Ablagestapel hinzufügen
@@ -219,6 +217,9 @@ function playCard(nrOfcardPlayed : number) {
     }
     if (playedCard == false){ // keine Karte aus der Computerhand kann abgelegt werden (false), d.h. Computer muss eine Karte ziehen
         let drawnCard: Card = drawPile[drawPile.length-1];
+        if(drawPile.length == 0){ // neu mischen, wenn Kartenstapel leer ist
+            reshufflePile();
+        }
         computerHand.push(drawnCard);
         drawPile.splice(drawPile.length-1,1);
         setTimeout(function(){updateHTML();},450);
@@ -228,6 +229,9 @@ function playCard(nrOfcardPlayed : number) {
 
 function drawCard(){ // Spieler kann eine Karte ziehen, soll oberste vom drawPile sein, daher length-1
     let drawnCard = drawPile[drawPile.length - 1];
+    if (drawPile.length == 0) { // wenn der Kartenstapel leer ist, soll der discardPile gemischt & auf den drawPile verschoben werden
+        reshufflePile();
+    }
         playerHand.push(drawnCard);
         drawPile.splice(drawPile.length - 1,1);
         updateHTML();
@@ -235,15 +239,6 @@ function drawCard(){ // Spieler kann eine Karte ziehen, soll oberste vom drawPil
         console.log(playerHand);
         console.log(drawPile);
         computerPlaysCard();
-}
-
-
-function computerDrawsCard(){
-    let firstDraw = drawPile[drawPile.length - 1];
-    computerHand.push(firstDraw);
-    drawPile.splice(drawPile.length-1,1);
-    updateHTML();
-    console.log("Computer hat eine Karte gezogen. (" + firstDraw.cardNumber + firstDraw.cardColor + ")")
 }
 
 function clearAllHTML(){ // wird noch in updateHTML() aufgerufen
@@ -295,4 +290,17 @@ function winOrLoss () { // Spiel soll bei Gewinn von Spieler oder Computer wiede
         element.disabled = false;
         updateHTML();
     }
+}
+
+function reshufflePile() {
+    let topCard = discardPile[discardPile.length - 1]; // oberste Karte zwischenspeichern, damit diese nicht verloren geht
+    discardPile.pop();
+    while(discardPile.length>0){ // while-Schleife läuft so lange, bis discardPile leer ist und vollständig an drawPile übertragen wurde
+        drawPile.push(discardPile[discardPile.length-1]);
+        discardPile.pop();
+    }
+    discardPile.push(topCard);
+    console.log("Karten wurden neu gemischt.");
+
+    shufflePile(drawPile); // am Ende wird der neue drawPile gemischt
 }

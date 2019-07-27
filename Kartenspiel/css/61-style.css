@@ -19,28 +19,28 @@ header > p {
 #computer, #player{
     clear:both;
     background-color: #DEB887;
-	margin: 2% 0 0 2%;
+	margin: 1% 0 2% 2%;
     padding: 3px;
 	width: 95%;
-	height: 250px;
+	height: 210px;
    	border-radius: 1em;
 }
 
 #draw #discard {
-	clear: left;
+	clear: both;
 	margin-left: 10em;
 	margin-right: 5em;
 }
 
 .Piles {
 	float: left;
-	width: 112px;
-	height: 195px;
+	width: 95px;
+	height: 168px;
+	margin: 0 2% 2% 15%;
 	border-color: #DEB887;
 	border-style: dotted;
 	border-width: 1%;
 	border-radius: 10px;
-	margin: 2% 0% 2% 15%;
 }
 
 .redCard:hover, .greenCard:hover, .blueCard:hover, .yellowCard:hover {
@@ -50,8 +50,8 @@ header > p {
 .redCard {
 	float: left;
 	box-shadow: 0 4px 8px 0 #645d5d;
-	width: 112px;
-	height: 195px;
+	width: 95px;
+	height: 168px;
 	background: #ffffff;
 	border-radius: 10px; /* runde Ecken */
 	margin: 2% 0% 2% 2%;
@@ -64,8 +64,8 @@ header > p {
 .blueCard {
 	float: left;
 	box-shadow: 0 4px 8px 0 #645d5d;
-	width: 112px;
-	height: 195px;
+	width: 95px;
+	height: 168px;
 	background: #ffffff;
 	border-radius: 10px; /* runde Ecken */
 	margin: 2% 0% 2% 2%;
@@ -78,8 +78,8 @@ header > p {
 .greenCard {
 	float: left;
 	box-shadow: 0 4px 8px 0 #645d5d;
-	width: 112px;
-	height: 195px;
+	width: 95px;
+	height: 168px;
 	background: #ffffff;
 	border-radius: 10px; /* runde Ecken */
 	margin: 2% 0% 2% 2%;
@@ -92,8 +92,8 @@ header > p {
 .yellowCard {
 	float: left;
 	box-shadow: 0 4px 8px 0 #645d5d;
-	width: 112px;
-	height: 195px;
+	width: 95px;
+	height: 168px;
 	background: #ffffff;
 	border-radius: 10px; /* runde Ecken */
 	margin: 2% 0% 2% 2%;
@@ -106,8 +106,8 @@ header > p {
 .hiddenCard { /*Design mittels Eigenrecherche gefunden und angewandt, siehe https://leaverou.github.io/css3patterns/#half-rombes */
 	float: left;
 	box-shadow: 0 4px 8px 0 #645d5d;
-	width: 112px;
-	height: 195px;
+	width: 95px;
+	height: 168px;
 	border-radius: 10px; /* runde Ecken */
 	margin: 2% 0% 2% 2%;
 	background: #36c;
@@ -127,15 +127,16 @@ header > p {
 .cardNumber {
 	color: #000;
 	font-size: 3.5em;
-	margin-left: 35%;
-	margin-top: 60%
+	margin-left: 28%;
+	margin-top: 55%
 }
 
 #start {
 	float: left;
 	box-sizing: border-box;
 	border-radius: 2em;
-	margin: 7% 5% 5% 20%;
+	margin-top: 4.3%;
+	margin-left: 15%;
 	background: #36c;
 	width: 15%;
 	height: 20%;
@@ -148,5 +149,6 @@ footer {
 	color: #808080;
 	text-align: center;
 	clear: left;
-	margin-top: 1%;
+	margin-top: 0,5%;
+	font-size: 1em;
 }
