@@ -45,6 +45,8 @@ header > p {
 
 .redCard:hover, .greenCard:hover, .blueCard:hover, .yellowCard:hover {
 	box-shadow: 0 4px 16px 0 #363333;
+	margin-top: 1%;
+	transition: ease, 0.5s;
 }
 
 .redCard {
@@ -109,7 +111,7 @@ header > p {
 	width: 95px;
 	height: 168px;
 	border-radius: 10px; /* runde Ecken */
-	margin: 2% 0% 2% 2%;
+	margin: 1% 0% 2% 2%;
 	background: #36c;
 	background:
 	linear-gradient(115deg, transparent 75%, rgba(255,255,255,.8) 75%) 0 0,

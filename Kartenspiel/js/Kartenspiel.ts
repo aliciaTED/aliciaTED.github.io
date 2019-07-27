@@ -16,13 +16,13 @@ let topCard: Card; // oberste Karte auf dem discardPile(Ablagestapel)
 let playedCard: boolean = false; //Karten, die bereits gespielt/aufgenommen wurden
 
 window.onload = function () {
+    alert("Spielregeln:\n\nDu spielst gegen einen einfachen Computer. Das Spiel folgt einem ähnlichen Prinzip wie Uno, nur ohne Sonderkarten. Karten gleicher Farbe bzw. gleicher Zahl können also aufeinander gelegt werden. Wenn du nicht kannst, musst du eine Karte ziehen. Wer zuerst keine Karten mehr hat, gewinnt. Mit einem Klick auf Start beginnst du das Spiel.\n\nViel Spaß!")
     document.getElementById("start").addEventListener("click", startGame, false); // Klick auf den Start-Button soll Spiel beginnen und Karten sichtbar machen
     console.log("Spiel kann gestartet werden.")
 }
 
 // Funktion zum Starten des Spiels, d.h. Karten mischen und an beide Spieler aufteilen, sowie 1. Karte auf Ablagestapel legen
 function startGame (){
-    alert("Spielregeln:\n\nDu spielst gegen einen einfachen Computer. Das Spiel folgt einem ähnlichen Prinzip wie Uno, nur ohne Sonderkarten. Karten gleicher Farbe bzw. gleicher Zahl können also aufeinander gelegt werden. Wenn du nicht kannst, musst du eine Karte ziehen. Wer zuerst keine Karten mehr hat, gewinnt.\n\nViel Spaß!")
     let element = <HTMLInputElement> document.getElementById("start");
     element.disabled = true; // Start-Button wird bis zum Ende des Spiels ausgeschaltet --> erst wieder eingeschaltet, wenn Spieler gewinnt oder verliert
     clearAllHTML();
