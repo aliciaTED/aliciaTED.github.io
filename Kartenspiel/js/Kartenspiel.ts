@@ -193,7 +193,7 @@ function playCard(nrOfcardPlayed : number) {
                 winOrLoss(); // Funktion, die über Gewinn entscheiden bzw. diesen überprüft
             } else {setTimeout(computerPlaysCard, 450)} // nach kurzer Verzögerung wird Funktion für Gegnerzug aufgerufen/ausgeführt
         } else {
-            alert("Diese Karte kann nicht abgelegt werden. Du musst ziehen.")
+            alert("Diese Karte kann nicht abgelegt werden. Du musst ziehen oder eine andere Karte legen.")
             console.log("Karte kann nicht abgelegt werden. Spieler zieht & Computer ist dran."); 
         }
     }
@@ -276,7 +276,7 @@ function clearHTML() { // soll alle HTML-Elemente bei erneutem Drücken des Star
 }
 
 function winOrLoss () { // Spiel soll bei Gewinn von Spieler oder Computer wieder von vorne anfangen
-    if(playerHand.length < 1) {
+    if(playerHand.length == 0) {
         alert("Du hast gewonnen! Möchtest du nochmal spielen?");
         playerHand = [];
         computerHand = [];
@@ -285,7 +285,7 @@ function winOrLoss () { // Spiel soll bei Gewinn von Spieler oder Computer wiede
         let element = <HTMLInputElement> document.getElementById("start");
         element.disabled = false;
         updateHTML();
-    } else if (computerHand.length < 1) {
+    } else if (computerHand.length == 0) {
         alert("Du hast verloren! Möchtest du es noch einmal versuchen?");
         playerHand = [];
         computerHand = [];

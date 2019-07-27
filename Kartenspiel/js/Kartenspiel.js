@@ -168,7 +168,7 @@ function playCard(nrOfcardPlayed) {
         } // nach kurzer Verzögerung wird Funktion für Gegnerzug aufgerufen/ausgeführt
     }
     else {
-        alert("Diese Karte kann nicht abgelegt werden. Du musst ziehen.");
+        alert("Diese Karte kann nicht abgelegt werden. Du musst ziehen oder eine andere Karte legen.");
         console.log("Karte kann nicht abgelegt werden. Spieler zieht & Computer ist dran.");
     }
 }
@@ -241,7 +241,7 @@ function clearHTML() {
     }
 }
 function winOrLoss() {
-    if (playerHand.length < 1) {
+    if (playerHand.length == 0) {
         alert("Du hast gewonnen! Möchtest du nochmal spielen?");
         playerHand = [];
         computerHand = [];
@@ -251,7 +251,7 @@ function winOrLoss() {
         element.disabled = false;
         updateHTML();
     }
-    else if (computerHand.length < 1) {
+    else if (computerHand.length == 0) {
         alert("Du hast verloren! Möchtest du es noch einmal versuchen?");
         playerHand = [];
         computerHand = [];
