@@ -229,7 +229,8 @@ function playCard(nrOfcardPlayed : number) {
 
 function drawCard(){ // Spieler kann eine Karte ziehen, soll oberste vom drawPile sein, daher length-1
     let drawnCard = drawPile[drawPile.length - 1];
-    if (drawPile.length == 0) { // wenn der Kartenstapel leer ist, soll der discardPile gemischt & auf den drawPile verschoben werden
+////////////////////////////////////////////////////////WICHTIG: Kommentar lesen!/////////////////////////////////////////////////////////////////////////////////////////////////////
+    if (drawPile.length == 0) { // wenn der Kartenstapel leer ist, soll der discardPile gemischt & auf den drawPile verschoben werden --> diese Bedingung wird anscheinend immer übersprungen, selbst wenn der drawPile leer ist. Bug konnte nicht mehr im Zeitrahmen gefixed werden, näheres dazu bei reshufflePile()
         reshufflePile();
     }
         playerHand.push(drawnCard);
